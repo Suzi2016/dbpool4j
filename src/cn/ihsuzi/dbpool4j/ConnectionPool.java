@@ -7,26 +7,47 @@ import java.util.ArrayList;
 
 public class ConnectionPool
 {
+	public static final String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
+	public static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
+	
 	private static int maxSize = 10;
 	private static int currentSize = 0;
 	private static ArrayList<DBCon> pool = new ArrayList<>();
 	private static int timeout = 10000;
 	private static Thread listenerThread;
-	
+
 	private static String driver_name = "";
 	private static String db_name = "";
 	private static String db_password = "";
 	private static String db_conUrl = "";
 
 	private static final String CLASSNAME = "ConnectionPool:";
-	
+
 	private static ConnectionPool connectionPool = new ConnectionPool();
-	
-	private ConnectionPool() {}
-	
+
+	private ConnectionPool()
+	{
+	}
+
 	public static ConnectionPool getConnectionPool()
 	{
 		return ConnectionPool.connectionPool;
+	}
+
+	/**
+	 * set all the database info
+	 * 
+	 * @param driver_name
+	 * @param db_name
+	 * @param db_password
+	 * @param db_conUrl
+	 */
+	public void setDBInfo(String driver_name, String db_name, String db_password, String db_conUrl)
+	{
+		ConnectionPool.driver_name = driver_name;
+		ConnectionPool.db_name = db_name;
+		ConnectionPool.db_password = db_password;
+		ConnectionPool.db_conUrl = db_conUrl;
 	}
 
 	public String getDriver_name()
